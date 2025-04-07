@@ -1,0 +1,24 @@
+#root {
+  width: 100%;
+  margin: 0;
+  display:flex;
+  flex-direction:column;
+
+}
+
+.entry-page-input{
+  width: 500px;
+}
+
+@media screen and (max-width: 600px) {
+ 
+  .entry-page-input{
+    width: 80%;
+  }
+  
+}
+
+.ant-radio-button-wrapper-checked:not(.ant-radio-button-wrapper-disabled)::before{
+  background-color: transparent !important
+  ;
+}
