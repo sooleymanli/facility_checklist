@@ -81,6 +81,9 @@ const EntryPage: React.FC<{ toggleTheme: () => void; darkMode: boolean }> = ({ t
                     format="DD.MM.YYYY"
                     style={{ width: '100%', marginBottom: 16 }}
                     size="large"
+                    inputReadOnly
+                    placement="bottomLeft"
+                    getPopupContainer={(trigger) => trigger.parentNode as HTMLElement}
                 />
                 <Button type="primary" onClick={handleContinue} style={{ width: '100%' }} size="large">
                     Davam et
