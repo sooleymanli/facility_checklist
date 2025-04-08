@@ -309,9 +309,9 @@ const ChecklistPage: React.FC<{ toggleTheme: () => void; darkMode: boolean }> = 
   );
 };
 
-const TabContent: React.FC<{ floor: string; tab: string; date: string | null }> = ({ floor, tab, date }) => {
+const TabContent: React.FC<{ floor?: string; tab: string; date?: string | null }> = ({ floor, tab, date }) => {
   const { token } = theme.useToken();
-
+console.log('TabContent:', floor, tab, date);
   return (
     <div
       style={{

@@ -8,7 +8,7 @@ const SaveModal: React.FC<{
   onConfirm: (inspector: string, signatureBase64: string) => void;
 }> = ({ visible, onClose, onConfirm }) => {
   const [inspector, setInspector] = useState('');
-  const [signatureData, setSignatureData] = useState('');
+  const [signatureData, setSignatureData] = useState<string | undefined>('');
   const sigCanvasRef = useRef<SignatureCanvas>(null);
 
   const handleSignatureEnd = () => {

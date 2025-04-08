@@ -1,10 +1,11 @@
 import React from 'react';
 import { Table, theme, Radio } from 'antd';
 
-const CustomTable: React.FC<{ tab: string }> = ({ tab }) => {
+const CustomTable: React.FC<{ tab?: string }> = ({ tab }) => {
   const { token } = theme.useToken();
+  console.log('tab', tab);
 
-  const generateData = (tab: string) => {
+  const generateData = () => {
     const roomNames = [
       'HR Otağı',
       'İT Otağı',
@@ -204,7 +205,7 @@ const CustomTable: React.FC<{ tab: string }> = ({ tab }) => {
     document.head.appendChild(styleSheet);
   }
 
-  const data = generateData(tab);
+  const data = generateData();
 
   return (
     <div
