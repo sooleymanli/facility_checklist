@@ -107,8 +107,19 @@ const SaveModal: React.FC<{
         borderRadius: 4, 
         marginBottom: 0,
         display: isSmallScreen ? 'flex' : 'block',
-        width: '100%'
+        width: '100%',
+        position: 'relative' as const
     }), [isSmallScreen]);
+
+    const placeholderStyle = useMemo(() => ({
+        position: 'absolute' as const,
+        top: '50%',
+        left: '50%',
+        transform: 'translate(-50%, -50%)',
+        color: '#bfbfbf',
+        pointerEvents: 'none' as const,
+        display: signatureData ? 'none' : 'block'
+    }), [signatureData]);
 
     const canvasProps = useMemo(() => ({
         width: isSmallScreen ? window.innerWidth - 40 : 500,
@@ -161,6 +172,7 @@ const SaveModal: React.FC<{
                             canvasProps={canvasProps}
                             onEnd={handleSignatureEnd}
                         />
+                        <div style={placeholderStyle}>İmzanızı bura çəkin</div>
                     </div>
                 </Form.Item>
 
