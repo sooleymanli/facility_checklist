@@ -141,17 +141,17 @@ const SaveModal: React.FC<{
             closable={true}
         >
             <Form layout='vertical' style={formStyle}>
-                <Form.Item label="Yoxlayan şəxsin adı və soyadı" vertical style={formItemStyle}>
+                <Form.Item label="Yoxlayan şəxsin adı və soyadı" style={formItemStyle}>
                     <Input
                         value={inspector}
                         onChange={(e) => setInspector(e.target.value)}
                         size="large"
+                        placeholder="Ad və soyadı daxil edin"
                     />
                 </Form.Item>
 
                 <Form.Item 
                     label="İmza" 
-                    vertical 
                     style={signatureFormItemStyle}
                 >
                     <div style={signatureContainerStyle}>
