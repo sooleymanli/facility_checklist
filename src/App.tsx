@@ -1,10 +1,16 @@
-import React, { JSX, useState, useEffect } from 'react';
+import React, { JSX, useState, useEffect, lazy, Suspense } from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate, useLocation } from 'react-router-dom';
-import { ConfigProvider, theme } from 'antd';
+import { ConfigProvider, theme, Spin } from 'antd';
 import az_AZ from 'antd/es/locale/az_AZ';
 import EntryPage from './pages/EntryPage';
 import ChecklistPage from './pages/ChecklistPage';
+import UserTablesPage from './pages/UserTablesPage';
+import DateSelectionPage from './pages/DateSelectionPage';
+import ReportsPage from './pages/ReportsPage';
 import './App.css'
+
+// Lazy load the AdminPage for better performance
+const AdminPage = lazy(() => import('./pages/AdminPage'));
 
 const RequireDate: React.FC<{ children: JSX.Element }> = ({ children }) => {
   const location = useLocation();
@@ -17,6 +23,18 @@ const RequireDate: React.FC<{ children: JSX.Element }> = ({ children }) => {
 
   return children;
 };
+
+// Loading component for suspense fallback
+const LoadingPage = () => (
+  <div style={{ 
+    display: 'flex', 
+    justifyContent: 'center', 
+    alignItems: 'center', 
+    height: '100vh' 
+  }}>
+    <Spin size="large" />
+  </div>
+);
 
 const App: React.FC = () => {
   const [darkMode, setDarkMode] = useState<boolean>(() => {
@@ -40,6 +58,11 @@ const App: React.FC = () => {
       setDarkMode(storedTheme === 'true');
     }
   }, []);
+
+  // Apply data-theme attribute to root element
+  useEffect(() => {
+    document.documentElement.setAttribute('data-theme', darkMode ? 'dark' : 'light');
+  }, [darkMode]);
 
   return (
     <ConfigProvider
@@ -68,6 +91,26 @@ const App: React.FC = () => {
                 <ChecklistPage toggleTheme={toggleTheme} darkMode={darkMode} />
               </RequireDate>
             }
+          />
+          <Route
+            path="/date-selection"
+            element={<DateSelectionPage darkMode={darkMode} />}
+          />
+          <Route
+            path="/reports"
+            element={<ReportsPage darkMode={darkMode} />}
+          />
+          <Route 
+            path="/admin/*" 
+            element={
+              <Suspense fallback={<LoadingPage />}>
+                <AdminPage toggleTheme={toggleTheme} darkMode={darkMode} />
+              </Suspense>
+            } 
+          />
+          <Route
+            path="/tables/*"
+            element={<UserTablesPage toggleTheme={toggleTheme} darkMode={darkMode} />}
           />
           <Route path="*" element={<Navigate to="/" />} />
         </Routes>
